@@ -1,11 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const taskController = require('../controllers/taskController')
+const taskController = require('../controllers/taskController');
 
 
 router.get('/', (req, res)=> {
    const tasks = taskController.getAllTasks();
-   res.status(200).json(tasks);
+
+   if(tasks.length>0){
+    res.status(200).json(tasks);
+   }else{
+    res.status(404).json({code: 404, message: "Tasks not found"});
+   }
+  
 });
 
 router.post('/', (req, res)=> {
